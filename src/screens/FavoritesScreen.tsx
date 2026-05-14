@@ -57,7 +57,7 @@ const FavoritesScreen: React.FC = () => {
     return (
       <SafeAreaView style={styles.container} edges={["top"]}>
         <EmptyState
-          icon="♡"
+          iconName="heart-outline"
           title="Aucun favori pour l'instant"
           description="Ajoute des morceaux à ta collection depuis l'écran de recherche."
         />

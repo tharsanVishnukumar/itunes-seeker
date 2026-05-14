@@ -138,7 +138,8 @@ const SearchScreen: React.FC = () => {
     if (error) {
       return (
         <EmptyState
-          icon="📡"
+          iconName="cloud-offline-outline"
+          iconColor={colors.error}
           title="Impossible de joindre iTunes"
           description={error}
           actionLabel="Réessayer"
@@ -150,7 +151,7 @@ const SearchScreen: React.FC = () => {
     if (!trimmedTerm) {
       return (
         <EmptyState
-          icon="🎧"
+          iconName="musical-notes-outline"
           title="Lance une recherche"
           description="Explore l'immense catalogue iTunes par artiste ou par titre."
         />
@@ -160,7 +161,7 @@ const SearchScreen: React.FC = () => {
     if (tracks.length === 0) {
       return (
         <EmptyState
-          icon="🪐"
+          iconName="search-outline"
           title="Aucun morceau trouvé"
           description={`Aucun résultat pour « ${trimmedTerm} ». Essaie un autre terme.`}
         />

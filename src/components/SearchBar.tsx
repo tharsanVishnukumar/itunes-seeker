@@ -39,9 +39,12 @@ const SearchBarComponent: React.FC<SearchBarProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.inputWrapper}>
-        <Text style={styles.searchGlyph} accessibilityElementsHidden>
-          🔎
-        </Text>
+        <Ionicons
+          name="search"
+          size={18}
+          color={colors.textMuted}
+          style={styles.searchGlyph}
+        />
         <TextInput
           style={styles.input}
           value={value}
@@ -109,9 +112,7 @@ const styles = StyleSheet.create({
     height: 44,
   },
   searchGlyph: {
-    fontSize: 16,
     marginRight: 8,
-    color: colors.textMuted,
   },
   input: {
     flex: 1,

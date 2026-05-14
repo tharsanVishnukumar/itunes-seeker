@@ -1,7 +1,7 @@
+import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
 
 import FavoritesScreen from "../screens/FavoritesScreen";
 import SearchScreen from "../screens/SearchScreen";
@@ -9,26 +9,24 @@ import TrackDetailScreen from "../screens/TrackDetailScreen";
 import { colors } from "../theme/colors";
 import type { AppTabParamList, RootStackParamList } from "../types";
 
+type IoniconsName = React.ComponentProps<typeof Ionicons>["name"];
+
 const Tabs = createBottomTabNavigator<AppTabParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 interface TabIconProps {
-  glyph: string;
+  name: "search" | "heart";
   focused: boolean;
+  color: string;
+  size: number;
 }
 
-const TabIcon: React.FC<TabIconProps> = ({ glyph, focused }) => (
-  <View style={styles.tabIconWrapper}>
-    <Text
-      style={[
-        styles.tabIconGlyph,
-        { color: focused ? colors.accent : colors.textMuted },
-      ]}
-    >
-      {glyph}
-    </Text>
-  </View>
-);
+const TabIcon: React.FC<TabIconProps> = ({ name, focused, color, size }) => {
+  const iconName: IoniconsName = focused
+    ? (name as IoniconsName)
+    : (`${name}-outline` as IoniconsName);
+  return <Ionicons name={iconName} size={size} color={color} />;
+};
 
 const TabsNavigator: React.FC = () => {
   return (
@@ -50,7 +48,9 @@ const TabsNavigator: React.FC = () => {
         options={{
           title: "Recherche",
           headerShown: false,
-          tabBarIcon: ({ focused }) => <TabIcon glyph="🔎" focused={focused} />,
+          tabBarIcon: ({ focused, color, size }) => (
+            <TabIcon name="search" focused={focused} color={color} size={size} />
+          ),
         }}
       />
       <Tabs.Screen
@@ -59,7 +59,9 @@ const TabsNavigator: React.FC = () => {
         options={{
           title: "Favoris",
           headerShown: false,
-          tabBarIcon: ({ focused }) => <TabIcon glyph="♥" focused={focused} />,
+          tabBarIcon: ({ focused, color, size }) => (
+            <TabIcon name="heart" focused={focused} color={color} size={size} />
+          ),
         }}
       />
     </Tabs.Navigator>
@@ -92,13 +94,3 @@ export const RootNavigator: React.FC = () => {
     </Stack.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  tabIconWrapper: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  tabIconGlyph: {
-    fontSize: 20,
-  },
-});
